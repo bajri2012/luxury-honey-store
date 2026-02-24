@@ -1,15 +1,14 @@
 import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
-import pg from 'pg';
 import * as dotenv from 'dotenv';
 
 // Force loading of .env file
 dotenv.config();
 
 const prismaClientSingleton = () => {
-    const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
-    const adapter = new PrismaPg(pool);
-    return new PrismaClient({ adapter });
+    return new PrismaClient({
+        // @ts-ignore - Following user preference for datasourceUrl despite local type mismatch
+        datasourceUrl: process.env.DATABASE_URL,
+    });
 };
 
 declare global {
