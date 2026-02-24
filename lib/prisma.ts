@@ -1,14 +1,7 @@
 import { PrismaClient } from '@prisma/client';
-import * as dotenv from 'dotenv';
-
-// Force loading of .env file
-dotenv.config();
 
 const prismaClientSingleton = () => {
-    return new PrismaClient({
-        // @ts-ignore - Following user preference for datasourceUrl despite local type mismatch
-        datasourceUrl: process.env.DATABASE_URL,
-    });
+    return new PrismaClient();
 };
 
 declare global {
